@@ -1,8 +1,9 @@
+import Rotas from "./_config/rotas";
 
 function App() {
   return (
     <>
-      <h1>Projeto React</h1>
+      <Rotas/>
     </>
   );
 }
