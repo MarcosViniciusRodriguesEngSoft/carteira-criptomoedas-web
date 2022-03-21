@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { Card, Col, Image } from 'react-bootstrap';
-import { DivCenterPR } from '../../_assets/js/StylesDiv';
+import { DivCenterPR } from '../../helpers/StylesDiv';
 import api from '../../_config/api/binance';
-import './styles.css';
+import '../../_config/style/index';
 
 class Carteira extends Component {
     
