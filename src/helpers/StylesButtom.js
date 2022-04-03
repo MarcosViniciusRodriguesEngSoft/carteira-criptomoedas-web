@@ -124,14 +124,14 @@ export const BTNRotation = styled(Btn)`
       &:hover{
           &:before{
             height: 350%;
-            transform: translate(-100%, -100%)rotate(-180deg);
+            transform: translate(-100%, -100%) rotate(-180deg);
             background-color: blueviolet;
           }
       }
     &:hover{
           &:before{
             height: 100%;
-            transform: translate(-50%, -50%)rotate(-3600deg);
+            transform: translate(-50%, -50%) rotate(-3600deg);
             background-color: red;
         }
     }
