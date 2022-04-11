@@ -17,14 +17,14 @@ function Carteira () {
 
     useEffect(() => {
         const fetchData = async () => {
-        const result = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=brl&order=market_cap_desc&per_page=1000&page=${pages}&sparkline=false`)
+        const result = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=brl&order=market_cap_desc&per_page=${itensPerPage}&page=${pages}&sparkline=false&sort=rank`)
         .then(response => response.json())
         .then(data => data)
 
         setItens(result)
     }
     fetchData()
-    },[pages])
+    },[pages, itensPerPage])
 
     useEffect(() => {
         setCurrentPage(0)
