@@ -4,15 +4,15 @@ import { DivCenter } from "../../helpers/StylesDiv";
 import { Container } from "react-bootstrap";
 import './styles.css';
 
-
 function Home () {
+
     return (
     <>
         <Container fluid className="fundo-color">
             <Carteira/>
-            <DivCenter>
+            {/*<DivCenter>
                 <ArrowLeftSquare className="arrow"/><ArrowRightSquare className="arrow"/>
-            </DivCenter>
+            </DivCenter>*/}
         </Container> 
     </>
     );

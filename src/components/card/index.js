@@ -1,45 +1,55 @@
-import React, {Component} from 'react';
+import { React, useState, useEffect } from 'react';
 import { Card, Col, Image } from 'react-bootstrap';
 import { DivCenterPR } from '../../helpers/StylesDiv';
-import api from '../../_config/api/binance';
 import '../../_config/style/index';
+import Pagination from '../pagination/Pagination';
+import PaginationSelect from '../pagination/PaginationSelect';
 
-class Carteira extends Component {
-    
-    state = {
-        criptos: [
-            {
-                
-            }
-        ]
+function Carteira () {
+    const [itens, setItens] = useState([])
+    const [itensPerPage, setItensPerPage] = useState(100)
+    const [currentPage, setCurrentPage] = useState(0)
+
+    const pages = Math.ceil(itens.length / itensPerPage)
+    const startIndex = currentPage * itensPerPage;
+    const endIndex = startIndex + itensPerPage;
+    const currentItens = itens.slice(startIndex, endIndex)
+
+    useEffect(() => {
+        const fetchData = async () => {
+        const result = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=brl&order=market_cap_desc&per_page=1000&page=${pages}&sparkline=false`)
+        .then(response => response.json())
+        .then(data => data)
+
+        setItens(result)
     }
-        async componentDidMount(){
-            const criptos_api = await api.get('cripto');
+    fetchData()
+    },[])
 
-            this.setState({
-                criptos: criptos_api.data
-            })
-        }
+    useEffect(() => {
+        setCurrentPage(0)
+    }, [itensPerPage])
 
-    render () {
-        return (
+    return (
         <>
+        <PaginationSelect itensPerPage={itensPerPage} setItensPerPage={setItensPerPage}/>  
             <DivCenterPR className="ajust-container">
-                {this.state.criptos.map( cripto =>
-                
+                {currentItens.map(item => 
+                    
                     <Col className="alin-card">
-                        <Image className="confg-img" src={cripto.image} />
-                        <Card.Title className="confg-title">{cripto.name}</Card.Title>
-                        <Card.Text className="confg-text">Cotação: R${cripto.current_price}</Card.Text>
-                        <Card.Text className="confg-text">Menor Preço: R${cripto.low_24h} 24H</Card.Text>
-                        <Card.Text className="confg-text">Maior Preço: R${cripto.high_24h} 24H</Card.Text>
-                        <Card.Text className="confg-text">Rank: <strong>{cripto.market_cap_rank}</strong></Card.Text>
+                        <Image className="confg-img" src={item.image} />
+                        <Card.Title className="confg-title">{item.name}</Card.Title>
+                        <Card.Text className="confg-text">Cotação: R${item.current_price}</Card.Text>
+                        <Card.Text className="confg-text">Menor Preço: R${item.low_24h} 24H</Card.Text>
+                        <Card.Text className="confg-text">Maior Preço: R${item.high_24h} 24H</Card.Text>
+                        <Card.Text className="confg-text">Rank: <strong>{item.market_cap_rank}</strong></Card.Text>
                     </Col>
+
                 )}
             </DivCenterPR>
+            <Pagination pages={pages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
         </>
-        )
-    }
+        );
 }
 
 export default Carteira;
