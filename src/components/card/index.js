@@ -24,7 +24,7 @@ function Carteira () {
         setItens(result)
     }
     fetchData()
-    },[])
+    },[pages])
 
     useEffect(() => {
         setCurrentPage(0)
